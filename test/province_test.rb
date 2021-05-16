@@ -7,6 +7,12 @@ require_relative '../lib/data'
 class ProvinceTest < Minitest::Test
   def setup
     @asia = Province.new(sample_province_data)
+    data = {
+      name: "No Producers", 
+      producers: [], 
+      demand: 30, 
+      price: 20}
+      @no_producers = Province.new(data)
   end
 
   def test_province_shortfall
@@ -21,5 +27,9 @@ class ProvinceTest < Minitest::Test
     @asia.producers[0].production = 20
     assert_equal(-6, @asia.shortfall)
     assert_equal(292, @asia.profit)
+  end
+
+  def test_no_producers_shortfall
+    assert_equal(0, @no_producers.profit)
   end
 end
